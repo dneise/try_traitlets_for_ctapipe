@@ -84,3 +84,20 @@ Well, I made a mistake in the config file, I appended the name of the Applicatio
 
 I leave it to the reader to try a few other simply errors, like typos ... try to configure values which do not even exist.
 
+No problem .. is that what ctapipe wants?
+
+
+# step 4
+
+Here I only fixed the error in the config.py
+
+input:
+
+    git checkout step_4
+    python myapp.py --config=config.py
+
+output:
+
+    boring
+
+observe that indeed `foo` and `bar` were correctly configured.
