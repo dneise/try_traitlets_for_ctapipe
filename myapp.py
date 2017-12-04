@@ -82,7 +82,9 @@ class MyApp(Application):
     def start(self):
         print("app.config:")
         print(self.config)
+        print()
         print("self.foo.__dict__:\n", self.foo.__dict__)
+        print()
         print("self.bar.__dict__:\n", self.bar.__dict__)
 
 
