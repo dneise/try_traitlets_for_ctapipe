@@ -30,10 +30,9 @@ When the config attribute of an Application is updated, it will fire all of
 the trait's events for all of the config=True attributes.
 """
 
-from traitlets.config.configurable import Configurable
 from traitlets.config.application import Application
 from traitlets import (
-    Bool, Unicode, Int, List, Dict
+    Bool, Unicode, List, Dict
 )
 
 from components import Foo, Bar
@@ -41,7 +40,7 @@ from components import Foo, Bar
 
 class MyApp(Application):
 
-    #name = Unicode(u'myapp')
+    name = Unicode(u'myapp')
     running = Bool(False,
                    help="Is the app running?").tag(config=True)
     classes = List([Bar, Foo])
@@ -83,6 +82,8 @@ class MyApp(Application):
     def start(self):
         print("app.config:")
         print(self.config)
+        print("self.foo.__dict__:\n", self.foo.__dict__)
+        print("self.bar.__dict__:\n", self.bar.__dict__)
 
 
 def main():
