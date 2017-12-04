@@ -63,4 +63,24 @@ We see both components are nicely configured. They even have both a "copy"
 of the entire configuration of the entire Application.
 **Observe**: the `parent` was obviously not used, as it is `None`.
 
+# step 3
+
+Now let's try to use a config file `config.py`.
+
+input:
+
+    git checkout step_3
+    cat config.py  # if you like
+    python myapp.py --config=config.py
+
+output:
+
+    app.config:
+    {'MyApp': {'config_file': 'config.py', 'Foo': {'i': 10}, 'Bar': {'enabled': False}}}
+
+**Observe**: Foo and Bar were not correctly configured. Why?
+
+Well, I made a mistake in the config file, I appended the name of the Application `MyApp`. Note  there was no error whatsoever, out application simply used the default values.
+
+I leave it to the reader to try a few other simply errors, like typos ... try to configure values which do not even exist.
 
