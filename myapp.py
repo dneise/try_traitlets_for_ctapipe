@@ -72,7 +72,7 @@ class MyApp(Application):
 
         self.foo = Foo(config=self.config)
         self.bar = Bar(config=self.config)
-        self.bamm = Bamm(config=self.config)
+        self.bamm = Bamm(config=self.config, parent=self.bar)
 
     def start(self):
         print("app.config:")
