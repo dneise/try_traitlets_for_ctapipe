@@ -93,7 +93,13 @@ output:
 
 Well, I made a mistake in the config file, I appended the name of the Application `MyApp`. Note  there was no error whatsoever, out application simply used the default values.
 
-I leave it to the reader to try a few other simply errors, like typos ... try to configure values which do not even exist.
+I leave it to the reader to try a few other simple errors, like typos
+
+    c.Foo.I = 10
+
+or try to configure values which do not even exist.
+
+    c.Foo.Holy_Handgranade = 10
 
 No problem .. is that what ctapipe wants?
 
