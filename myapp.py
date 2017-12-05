@@ -36,7 +36,7 @@ from traitlets import (
     Bool, Unicode, List, Dict
 )
 
-from components import Foo, Bar
+from components import Foo, Bar, Bamm
 
 
 class MyApp(Application):
@@ -65,20 +65,14 @@ class MyApp(Application):
         debug=({'MyApp': {'log_level': 10}}, "Set loglevel to DEBUG")
     ))
 
-    def init_foo(self):
-        # Pass config to other classes for them to inherit the config.
-        self.foo = Foo(config=self.config)
-
-    def init_bar(self):
-        # Pass config to other classes for them to inherit the config.
-        self.bar = Bar(config=self.config)
-
     def initialize(self, argv=None):
         self.parse_command_line(argv)
         if self.config_file:
             self.load_config_file(self.config_file)
-        self.init_foo()
-        self.init_bar()
+
+        self.foo = Foo(config=self.config)
+        self.bar = Bar(config=self.config)
+        self.bamm = Bamm(config=self.config)
 
     def start(self):
         print("app.config:")
@@ -87,6 +81,8 @@ class MyApp(Application):
         print("self.foo.__dict__:\n", self.foo.__dict__)
         print()
         print("self.bar.__dict__:\n", self.bar.__dict__)
+        print()
+        print("self.bamm.__dict__:\n", self.bamm.__dict__)
 
 
 def main():
