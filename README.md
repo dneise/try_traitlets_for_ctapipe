@@ -127,3 +127,26 @@ When you now execute:
 you'll observe that indeed `config` now really contains a hierarchy of configuration. But up to now, there is `Configurable` named "Bamm" inside "Bar" which could be configured like this.
 
 I have not found anything in the traitlets documentation yet, telling me how to create this kind of hierarchy, so in the following steps I simply guess and see whats working.
+
+# step 7:
+
+I added a new Configurable named "Bamm" and tried to configure it with `self.config` in myapp.py.
+
+As expected this does not work, since "Bamm" is on the same level as "Foo" and "Bar" in the code, but in the configuration it is one level below.
+
+When now executing:
+
+    $ ./myapp.py --config=config.py
+
+We observe, indeed "Bamm" was not configured, since its "name" attribute still has its default value.
+
+**But** we see something else. I had forgotten to update the line
+
+    classes = List([Bar, Foo])
+
+inside `myapp.py` to also list the new "Bamm" configurable. But still everything works exactly as expected.
+
+I had **assumed** up to now, lacking better documentation, that an `Application` needs a special `classes` attribute to list all the classes which are to be configured.
+
+Let's try and get rid of this `classes` list and see what happens in the next step.
+
