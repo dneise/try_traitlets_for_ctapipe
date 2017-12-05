@@ -150,3 +150,32 @@ I had **assumed** up to now, lacking better documentation, that an `Application`
 
 Let's try and get rid of this `classes` list and see what happens in the next step.
 
+# step 8: `classes` special attribute?
+
+I remove `classes = List([Bar, Foo])` from myapp.py and try it out:
+
+    ./myapp.py --config=config.py
+
+Indeed the `config` dict still contains all information from `config.py` and foo and bar were configured correctly. I almost thought all was well, **but**:
+
+
+    ./myapp.py -h
+
+What is that?! A Traceback when printing the help?
+That's not good. So clearly the `classes` attribute of an `Application` plays a special role when it comes to rendering the help text.
+
+So let's put it back in.. [no step for that ... do it yourself if you want to try it out, or go back to `step_7`].
+
+    ./myapp.py -h
+
+Ah ... it works again, but ... as you remember, I forgot to put `Bamm` into the list of `classes`. Why does this not pose a problem now? Why does it work? Let's look at the complete help:
+
+    ./myapp.py --help-all
+
+And there it is ... The options of `Bamm` are missing. (Btw. this information, that `classes` is needed for the help is nowhere to find in the documentation of `traitlets.config.application.Application`)
+
+So we see, this might possibly be a problem down the line. People might easily add "Components" (the ctapipe Configurables) to an Application and forget to add it to the list of `classes`, which still creates a nicely running Application, just somebody who looks at the help, will not find all options.
+
+I think the "flow" aspect of ctapipe can help here. Looking at https://cta-observatory.github.io/ctapipe/flow/index.html#json-example, we can at least imagine that such a json-description of an Application can very well be turned into a running application, including completely filling the list of `classes`. For now I do not want to go further into this matter, but come back to the hierarchial configuration.
+
+
