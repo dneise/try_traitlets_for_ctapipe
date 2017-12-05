@@ -101,3 +101,14 @@ output:
     boring
 
 observe that indeed `foo` and `bar` were correctly configured.
+
+# step 5
+
+Let's make this feel more like a real command line interface.
+
+input:
+
+    $ ./myapp.py --config=config.py
+
+output: just like before.
+

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """A simple example of how to use traitlets.config.application.Application.
 
 This should serve as a simple example that shows how the traitlets config
