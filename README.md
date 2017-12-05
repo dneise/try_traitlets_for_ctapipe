@@ -239,3 +239,57 @@ Event when they look at the `app.config` they have a chance to miss the problem:
 Since they see there configuration at the top, and might totally miss a different
 configuration at the bottom. But it comes even better, wait for the next step.
 
+# step 10
+
+Okay, so I removed The "Hekki" name from the config file, to even better show
+you how a user might miss an ineffective commandline parameter.
+
+Let's quickly recap:
+
+    $ ./myapp.py --config=config.py
+
+Bamms name is simply the default "Bamms name".
+
+To correctly override the default, we found out in step 9 the user needs to do this:
+
+    ./myapp.py --config=config.py --Bar.Bamm.name="correct"
+
+And indeed, Bamms name is now "correct" and the app.config looks like this:
+
+    {
+        'MyApp': {'config_file': 'config.py'},
+        'Bar': {
+            'Bamm': {
+                'name': 'correct'
+            },
+            'enabled': False
+        },
+        'Foo': {'i': 10}
+    }
+
+The above configuration from the command line is correct, but the user cannot
+learn this from the help.
+
+However, this configuration, which is mentioned in the help, does not work:
+
+    $ ./myapp.py --config=config.py --Bamm.name="does not work"
+
+The `app.config` looks like this:
+
+    {
+        'MyApp': {'config_file': 'config.py'},
+        'Bamm': {'name': 'does not work'},
+        'Foo': {'i': 10},
+        'Bar': {'enabled': False}
+    }
+
+But **wait** ... look at the `__dict___` of Bamm!
+
+    self.bamm.__dict__:
+    {'_trait_values': {'name': 'does not work',
+
+It **was** configured with the new name from the command line, but this should
+not work! We have seen that it does not work, in step 9, where we had set Bamms name
+in the config file.
+
+At this moment, I have to lean back and think a bit about what I just learned.
