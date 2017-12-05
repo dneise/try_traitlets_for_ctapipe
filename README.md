@@ -1,7 +1,19 @@
 # try_traitlets_for_ctapipe
-Here I try to understand how traitlets works
 
-You can follow my "steps" by checking out each "step_xxx" tag.
+Here I try to understand how traitlets works.
+
+If you want to follow the course of my thoughts below, I recoment, to
+checkout this repo into a throwaway folder and keep the browser open, to
+follow the README, e.g. like this:
+
+    mkdir foo
+    git clone git@github.com:dneise/try_traitlets_for_ctapipe.git
+    cd foo
+
+    git checkout step_1
+    ...
+
+
 
 # step 1
 
