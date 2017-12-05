@@ -44,7 +44,6 @@ class MyApp(Application):
     name = Unicode(u'myapp')
     running = Bool(False,
                    help="Is the app running?").tag(config=True)
-    classes = List([Bar, Foo])
     config_file = Unicode(
         u'',
         help="Load this config file").tag(config=True)
