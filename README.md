@@ -3,13 +3,10 @@
 Here I try to understand how traitlets works.
 
 If you want to follow the course of my thoughts below, I recoment, to
-checkout this repo into a throwaway folder and keep the browser open, to
-follow the README, e.g. like this:
+checkout this repo and keep the browser tab open, to follow the README, e.g. like this:
 
-    mkdir foo
     git clone git@github.com:dneise/try_traitlets_for_ctapipe.git
-    cd foo
-
+    cd try_traitlets_for_ctapipe
     git checkout step_1
     ...
 
