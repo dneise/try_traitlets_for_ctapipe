@@ -178,4 +178,64 @@ So we see, this might possibly be a problem down the line. People might easily a
 
 I think the "flow" aspect of ctapipe can help here. Looking at https://cta-observatory.github.io/ctapipe/flow/index.html#json-example, we can at least imagine that such a json-description of an Application can very well be turned into a running application, including completely filling the list of `classes`. For now I do not want to go further into this matter, but come back to the hierarchial configuration.
 
+# step 9:
+
+You cannot see this, but I tried a couple of different methods to explain the
+traitlets configuration system, that I wanted `Bamm` to be somehow a child of
+`Bar`. I let `Bamm` inherit from `Bar`, defined "class Bamm" inside of Bar, and some other things.
+Then I remembered something from the codebase of ctapipe.
+
+    self.bamm = Bamm(config=self.config, parent=self.bar)
+
+Is all that is needed, to explain Bamm, that it should configure itself, as if it
+were a child of "Bar", trying it out:
+
+    ./myapp.py --config=config.py
+
+verifies, yes indeed now `self.bamm` has the correct name from the config file.
+
+Now .. since it was somehow difficult (maybe only for me) to understand how to set-up this hierarchial configuration. Let me take a step back and look at it.
+
+It is not the implementation of "Bamm" which defined this configuration hierarchy,
+when we look at the `components` module of this repo, we observe a totally flat
+hierarchy of Configurables. Instead it is only the way "myapp.py" decided to
+call Bamms `__init__()`, which defined this hierarchy.
+
+This means, if I were to write a config file, and I wanted to configure a certain
+configurable inside the application, I need to be aware how the designer of the aplication
+layed out the Configurables hierarchy. I can read the applications implementation,
+or I can study the "help-all" help, right? No!
+
+Look at this:
+
+    $ ./myapp.py --help-all
+
+It says, I can use `--Bamm.name` to configre Bamms name, okay let's try:
+
+    $ ./myapp.py --config=config.py --Bamm.name="No No No"
+
+but it does not work ... Bamm still has the "HekkiHekki" name...
+What does work, but is not mentioned in the help at all is:
+
+    $ ./myapp.py --config=config.py --Bar.Bamm.name="YesYes Yaw"
+
+But how would a possible user know that? I guess they would not, they would simply
+execute the application assuming their command line parameters had an effect.
+Event when they look at the `app.config` they have a chance to miss the problem:
+
+    app.config:
+    {
+        'MyApp': {'config_file': 'config.py'},
+        'Bamm': {'name': 'No No No'},
+        'Foo': {'i': 10},
+        'Bar': {
+            'enabled': False,
+            'Bamm': {
+                'name': 'Hekkihekkihekki Pateng'
+            }
+        }
+    }
+
+Since they see there configuration at the top, and might totally miss a different
+configuration at the bottom. But it comes even better, wait for the next step.
 
