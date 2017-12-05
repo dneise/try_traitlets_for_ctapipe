@@ -112,3 +112,18 @@ input:
 
 output: just like before.
 
+# step 6
+
+The traitlets documentation repeatedly refers to a configuration hierarchy. Up to now the config object was a flat dict, so let's try to see how this hierarchy works.
+
+I just added one line to the `config.py`:
+
+    c.Bar.Bamm.name = "Hekkihekkihekki Pateng"
+
+When you now execute:
+
+    $ ./myapp.py --config=config.py
+
+you'll observe that indeed `config` now really contains a hierarchy of configuration. But up to now, there is `Configurable` named "Bamm" inside "Bar" which could be configured like this.
+
+I have not found anything in the traitlets documentation yet, telling me how to create this kind of hierarchy, so in the following steps I simply guess and see whats working.
