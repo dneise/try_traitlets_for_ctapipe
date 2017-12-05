@@ -18,3 +18,6 @@ class Foo(Configurable):
 class Bar(Configurable):
 
     enabled = Bool(True, help="Enable bar.").tag(config=True)
+
+class Bamm(Configurable):
+    name = Unicode(u'Bamms name').tag(config=True)
