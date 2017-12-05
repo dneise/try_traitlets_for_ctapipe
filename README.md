@@ -44,7 +44,6 @@ To see what configurations Foo and Bar have.
 
 input:
 
-    git checkout step_2
     python myapp.py -i 3 --enabled=False --Foo.name="Prian"
 
 output:
@@ -76,11 +75,12 @@ of the entire configuration of the entire Application.
 
 # step 3
 
+    git checkout step_3
+
 Now let's try to use a config file `config.py`.
 
 input:
 
-    git checkout step_3
     cat config.py  # if you like
     python myapp.py --config=config.py
 
