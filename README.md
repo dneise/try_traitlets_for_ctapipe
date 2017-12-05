@@ -81,15 +81,35 @@ Now let's try to use a config file `config.py`.
 
 input:
 
-    cat config.py  # if you like
+    cat config.py
+
+observe:
+
+    c.MyApp.Foo.i = 10
+    c.MyApp.Bar.enabled = False
+
+now execute:
+
     python myapp.py --config=config.py
 
 output:
 
     app.config:
-    {'MyApp': {'config_file': 'config.py', 'Foo': {'i': 10}, 'Bar': {'enabled': False}}}
+    {'MyApp': {
+        'config_file': 'config.py',
+        'Foo': {'i': 10},
+        'Bar': {'enabled': False}}
+    }
 
-**Observe**: Foo and Bar were not correctly configured. Why?
+**But Observe**: `self.foo` and `self.bar` were not correctly configured:
+
+    self.foo.__dict__:
+        {'_trait_values': {'i': 0
+
+    self.bar.__dict__:
+        {'_trait_values': {'enabled': True
+
+Why?
 
 Well, I made a mistake in the config file, I appended the name of the Application `MyApp`. Note  there was no error whatsoever, out application simply used the default values.
 
