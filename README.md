@@ -30,6 +30,8 @@ Just to see if everything works, if not .. you might need to:
 
 # step 2
 
+    git checkout step_2
+
 Here I moved the "Components" Foo and Bar out of the "Application" source code file, just to make it more look like ctapipe.
 
 I added some `print()` so we can see that `Foo` and `Bar` are still nicely configured.
